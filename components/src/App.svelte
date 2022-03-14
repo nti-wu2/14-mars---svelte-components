@@ -13,6 +13,11 @@ function addTodo(){
 	newTodo = '';
 }
 
+function removeTodo(index){
+	todos.splice(index, 1);
+	todos = [...todos];
+}
+
 </script>
 
 <main class="app">
@@ -25,14 +30,29 @@ function addTodo(){
 		<button on:click={addTodo}>Add todo!</button>
 	</section>
 	<ul class="todos">
-		{#each todos as todo}
+		{#each todos as todo, index}
 		<li class:done={todo.done}>
-			<input type="checkbox" bind:checked={todo.done}>{todo.text}
+			<input type="checkbox" bind:checked={todo.done}>
+			<span>{todo.text}</span>
+			<span class="remove" on:click={() => removeTodo(index)}>Ta bort!</span>
 		</li>
 		{/each}
 	</ul>
 </main>
 
 <style>
+
+ul li span.remove {
+	color: red;
+	font-size: .8rem;
+}
+
+ul li.done {
+	opacity: .5;
+}
+
+li.done span {
+	text-decoration: line-through;
+}
 
 </style>
